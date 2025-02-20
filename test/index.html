@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>选择题游戏</title>
+    <style>
+        body {
+            background-image: url('background.jpg'); /* 背景图 */
+            background-size: cover; 
+            background-position: center;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+        .container {
+            margin-top: 20vh;
+        }
+        .question {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .btn {
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        #btnA {
+            background-color: green;
+            color: white;
+        }
+        #btnB {
+            background-color: red;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="question" id="questionText">你喜欢吃苹果还是香蕉？</div>
+        <button class="btn" id="btnA" onclick="nextPage()">苹果 🍏</button>
+        <button class="btn" id="btnB" onclick="enlargeA()">香蕉 🍌</button>
+    </div>
+
+    <script>
+        let step = 0; // 记录用户点 B 的次数
+        let questions = [
+            "你不考虑考虑吗？",
+            "真的不试试看吗？",
+            "你真的确定吗？",
+            "我劝你选 苹果 哦...",
+            "再考虑一下？",
+            "别犹豫了！",
+            "你确定不选 苹果？",
+            "A 真的很棒哦！",
+            "你是不是不敢选 苹果？",
+            "好吧，香蕉 不见了！"
+        ];
+
+        function nextPage() {
+            window.location.href = "success.html"; // 跳转到成功页面
+        }
+
+        function enlargeA() {
+            let btnA = document.getElementById("btnA");
+            let btnB = document.getElementById("btnB");
+            let questionText = document.getElementById("questionText");
+
+            // 按钮变大
+            let currentSize = parseInt(window.getComputedStyle(btnA).fontSize);
+            btnA.style.fontSize = (currentSize + 5) + "px";
+
+            // 更改问题
+            if (step < questions.length) {
+                questionText.innerText = questions[step];
+                step++; // 让下次选 B 变成下一个问题
+            }
+
+            // **当点 B 超过 10 次，B 按钮消失**
+            if (step >= 10) {
+                btnB.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
